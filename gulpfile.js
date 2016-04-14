@@ -8,22 +8,23 @@ var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
 
-gulp.task('serve', ['sass'], function() {
+gulp.task('serve', ['sass', 'templates'], function() {
   browserSync.init({
-    server: './build'
+    server: './build',
+    open: false
   });
 
-  gulp.watch('src/scss/*.scss', ['sass']);
-  gulp.watch('src/*.html', ['templates-watch']);
+  gulp.watch('src/**/*.scss', ['sass']);
+  gulp.watch('src/**/*.html', ['templates-watch']);
 });
 
 gulp.task('scss-lint', function() {
-  return gulp.src('src/scss/**/*.scss')
+  return gulp.src('src/**/*.scss')
     .pipe(scssLint());
 });
 
 gulp.task('sass', ['scss-lint'], function() {
-  return gulp.src('src/scss/*.scss')
+  return gulp.src('src/**/*.scss')
     .pipe(plumber(function(error) {
       gutil.log(error.toString());
       notify().write({
@@ -35,7 +36,7 @@ gulp.task('sass', ['scss-lint'], function() {
     .pipe(sass({
       includePaths: [
         './node_modules/normalize.css/',
-        'src/scss/'
+        'src/'
       ]
     }))
     .pipe(autoprefixer({
