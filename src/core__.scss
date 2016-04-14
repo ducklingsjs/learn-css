@@ -50,9 +50,10 @@
 
   .__image {
     margin-top: 8px;
-    
+
     img {
-      border: 1px solid red;
+      $red: #FF0000;
+      border: 1px solid $red;
     }
   }
 }
