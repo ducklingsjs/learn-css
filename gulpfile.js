@@ -7,8 +7,10 @@ var notify = require('gulp-notify');
 var sass = require('gulp-sass');
 var autoprefixer = require('gulp-autoprefixer');
 var browserSync = require('browser-sync').create();
+var del = require('del');
+var path = require('path');
 
-gulp.task('serve', ['sass', 'templates'], function() {
+gulp.task('serve', ['sass', 'templates', 'images'], function() {
   browserSync.init({
     server: './build',
     open: false
@@ -53,6 +55,11 @@ gulp.task('templates-watch', ['templates'], function() {
 
 gulp.task('templates', function() {
   gulp.src('src/**/*.html')
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('images', function() {
+  gulp.src('src/**/*.png')
     .pipe(gulp.dest('build/'));
 });
 
