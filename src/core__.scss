@@ -22,9 +22,11 @@
 
 .__task {
   padding: 20px;
-  $black: #000000;
-  border-bottom: 1px solid $black;
-  border-top: 1px solid $black;
+  $border: #DDDDDD;
+  $background: #EEEEEE;
+  background-color: $background;
+  border-bottom: 1px solid $border;
+  border-top: 1px solid $border;
 
   &::after {
     content: ' ';
@@ -50,11 +52,6 @@
 
   .__image {
     margin-top: 8px;
-
-    img {
-      $red: #FF0000;
-      border: 1px solid $red;
-    }
   }
 }
 
