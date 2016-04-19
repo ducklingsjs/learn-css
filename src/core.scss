@@ -145,6 +145,11 @@ $sidebar-background: #242830;
     color: $body-color;
     margin-top: 8px;
     font-size: 14px;
+
+    b {
+      $b-color: #F5D367;
+      color: $b-color;
+    }
   }
 
   .__image {
