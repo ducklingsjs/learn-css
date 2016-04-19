@@ -10,7 +10,7 @@ var browserSync = require('browser-sync').create();
 var del = require('del');
 var path = require('path');
 
-gulp.task('serve', ['sass', 'templates', 'images'], function() {
+gulp.task('serve', ['sass', 'templates', 'images', 'javascript'], function() {
   browserSync.init({
     server: './build',
     open: false
@@ -18,6 +18,7 @@ gulp.task('serve', ['sass', 'templates', 'images'], function() {
 
   gulp.watch('src/**/*.scss', ['sass']);
   gulp.watch('src/**/*.html', ['templates-watch']);
+  gulp.watch('src/**/*.js', ['javascript-watch']);
 });
 
 gulp.task('scss-lint', function() {
@@ -25,7 +26,7 @@ gulp.task('scss-lint', function() {
     .pipe(scssLint());
 });
 
-gulp.task('sass', ['scss-lint'], function() {
+gulp.task('sass', ['scss-lint', 'sass-copy'], function() {
   return gulp.src('src/**/*.scss')
     .pipe(plumber(function(error) {
       gutil.log(error.toString());
@@ -36,6 +37,7 @@ gulp.task('sass', ['scss-lint'], function() {
       this.emit('end');
     }))
     .pipe(sass({
+      outputStyle: 'expanded',
       includePaths: [
         './node_modules/normalize.css/',
         'src/'
@@ -45,8 +47,13 @@ gulp.task('sass', ['scss-lint'], function() {
       browsers: ['last 2 versions', 'ie > 9', 'Android >= 4', 'iOS >= 7', 'ie_mob >= 8'],
       cascade: false
     }))
-    .pipe(gulp.dest('build/css'))
+    .pipe(gulp.dest('build/'))
     .pipe(browserSync.stream());
+});
+
+gulp.task('sass-copy', function() {
+  gulp.src('src/**/*.scss')
+    .pipe(gulp.dest('build/'));
 });
 
 gulp.task('templates-watch', ['templates'], function() {
@@ -55,6 +62,15 @@ gulp.task('templates-watch', ['templates'], function() {
 
 gulp.task('templates', function() {
   gulp.src('src/**/*.html')
+    .pipe(gulp.dest('build/'));
+});
+
+gulp.task('javascript-watch', ['javascript'], function() {
+  browserSync.reload();
+});
+
+gulp.task('javascript', function() {
+  gulp.src('src/**/*.js')
     .pipe(gulp.dest('build/'));
 });
 

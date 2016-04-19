@@ -1,0 +1,157 @@
+@import 'normalize';
+
+* {
+  box-sizing: border-box;
+}
+
+*::after,
+*::before {
+  box-sizing: inherit;
+}
+
+$body-background: #2C313A;
+$body-color: #FFFFFF;
+
+body {
+  background-color: $body-background;
+  color: $body-color;
+}
+
+.__index {
+  text-align: center;
+
+  .__title {
+    $title-color: #F5D367;
+    font-size: 30px;
+    color: $title-color;
+  }
+
+  .__exp {
+    $background: #353D45;
+    background-color: $background;
+    padding: 20px 0;
+  }
+
+  .__tasks {
+    font-size: 24px;
+  }
+
+  .__links {
+    $background: #353D45;
+    background-color: $background;
+    list-style: none;
+    padding: 20px 0;
+    counter-reset: li;
+    text-align: center;
+
+    li {
+      margin-top: 10px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+    }
+
+    .__link {
+      color: $body-color;
+      font-size: 16px;
+      text-decoration: none;
+
+      &:hover {
+        $hover-color: #A78752;
+        color: $hover-color;
+      }
+
+      &::before {
+        counter-increment: li;
+        content: 'Task ' counter(li) ': ';
+      }
+    }
+  }
+}
+
+
+
+.hljs {
+  @import 'highlight-styles/dark';
+}
+
+$sidebar-background: #242830;
+
+.__sidebar-hook {
+  cursor: pointer;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  background-color: $sidebar-background;
+  padding: 10px;
+  position: absolute;
+  left: -66px;
+  top: 50px;
+  text-transform: uppercase;
+  line-height: 25px;
+  transform: rotateZ(-90deg);
+}
+
+.__sidebar {
+  background-color: $sidebar-background;
+
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  transition: transform 0.3s;
+  transform: translate(100%, 0);
+  padding: 20px;
+  max-width: calc(100vw - 200px);
+
+  &.__open {
+    transform: translate(0, 0);
+  }
+
+  h2 {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+}
+
+.__task {
+  padding: 20px;
+  $color: #FFFFFF;
+  $background: #353D45;
+  color: $color;
+  background-color: $background;
+
+  &::after {
+    content: ' ';
+    clear: both;
+    display: table;
+  }
+
+  .__content {
+    float: left;
+    width: 50%;
+
+    padding: 0 10px;
+  }
+
+  .__head {
+    $head-color: #F5D367;
+    font-size: 18px;
+    color: $head-color;
+  }
+
+  .__body {
+    $body-color: #A78752;
+    color: $body-color;
+    margin-top: 8px;
+    font-size: 14px;
+  }
+
+  .__image {
+    margin-top: 8px;
+  }
+}
+
+.__solution {
+  min-height: 50vh;
+}
